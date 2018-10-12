@@ -4,13 +4,13 @@ using System.Linq;
 namespace SortHelper
 {
     /// <summary>
-    /// SortMaker includes method for sorting
+    /// SortMaker includes methods for sorting
     /// </summary>
     public static class SortMaker
     {
 
         /// <summary>
-        /// QuickSort method
+        /// QuickSort method checks correct data
         /// </summary>
         /// <param name="array">Transferred array</param>
         public static void QuickSort(int [] array)
@@ -29,10 +29,10 @@ namespace SortHelper
         }
 
         /// <summary>
-        /// MergeSort method
+        /// MergeSort method checks correct data
         /// </summary>
         /// <param name="array">Transferred array</param>
-        /// <returns>Returns sorted array</returns>
+        /// <returns>Sorted array</returns>
         public static int [] MergeSort(int[] array)
         {
             if (array == null)
@@ -49,10 +49,10 @@ namespace SortHelper
         }
 
         /// <summary>
-        /// MergeSorter method
+        /// MergeSorter method divides array on two parts
         /// </summary>
         /// <param name="array">Transferred array</param>
-        /// <returns>Sorted part of array</returns>
+        /// <returns>Sorted part of the array</returns>
         private static int[] MergeSorter(int[] array)
         {
             if (array.Length == 1)
@@ -69,7 +69,7 @@ namespace SortHelper
         /// </summary>
         /// <param name="mass1">First part of the array</param>
         /// <param name="mass2">Second part of the array</param>
-        /// <returns>Merged array.</returns>
+        /// <returns>Merged array</returns>
         private static int[] Merge(int[] mass1, int[] mass2)
         {
             int a = 0, b = 0;
