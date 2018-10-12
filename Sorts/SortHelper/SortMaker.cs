@@ -4,7 +4,7 @@ using System.Linq;
 namespace SortHelper
 {
     /// <summary>
-    /// SortMaker class
+    /// SortMaker includes method for sorting
     /// </summary>
     public static class SortMaker
     {
@@ -25,14 +25,14 @@ namespace SortHelper
                 throw new ArgumentNullException("Array length can't be equal to 0");
             }
 
-            QuickSorter(array, 0, array.Length-1);
+            QuickSorter(array, 0, array.Length - 1);
         }
 
         /// <summary>
         /// MergeSort method
         /// </summary>
         /// <param name="array">Transferred array</param>
-        /// <returns>Sorted array</returns>
+        /// <returns>Returns sorted array</returns>
         public static int [] MergeSort(int[] array)
         {
             if (array == null)
@@ -67,9 +67,9 @@ namespace SortHelper
         /// <summary>
         /// Merge method implements sorting
         /// </summary>
-        /// <param name="mass1">First part of array</param>
-        /// <param name="mass2">Second part of array</param>
-        /// <returns>Merged array</returns>
+        /// <param name="mass1">First part of the array</param>
+        /// <param name="mass2">Second part of the array</param>
+        /// <returns>Merged array.</returns>
         private static int[] Merge(int[] mass1, int[] mass2)
         {
             int a = 0, b = 0;
