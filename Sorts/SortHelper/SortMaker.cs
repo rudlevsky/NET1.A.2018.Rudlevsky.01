@@ -4,16 +4,15 @@ using System.Linq;
 namespace SortHelper
 {
     /// <summary>
-    /// SortMaker includes methods for sorting
+    /// SortMaker includes methods for sorting.
     /// </summary>
     public static class SortMaker
     {
-
         /// <summary>
-        /// QuickSort method checks correct data
+        /// QuickSort method checks correct data.
         /// </summary>
-        /// <param name="array">Transferred array</param>
-        public static void QuickSort(int [] array)
+        /// <param name="array">Transferred array.</param>
+        public static void QuickSort(int[] array)
         {
             if (array == null)
             {
@@ -29,11 +28,11 @@ namespace SortHelper
         }
 
         /// <summary>
-        /// MergeSort method checks correct data
+        /// MergeSort method checks correct data.
         /// </summary>
-        /// <param name="array">Transferred array</param>
-        /// <returns>Sorted array</returns>
-        public static int [] MergeSort(int[] array)
+        /// <param name="array">Transferred array.</param>
+        /// <returns>Sorted array.</returns>
+        public static int[] MergeSort(int[] array)
         {
             if (array == null)
             {
@@ -49,10 +48,10 @@ namespace SortHelper
         }
 
         /// <summary>
-        /// MergeSorter method divides array on two parts
+        /// MergeSorter method divides array on two parts.
         /// </summary>
-        /// <param name="array">Transferred array</param>
-        /// <returns>Sorted part of the array</returns>
+        /// <param name="array">Transferred array.</param>
+        /// <returns>Sorted part of the array.</returns>
         private static int[] MergeSorter(int[] array)
         {
             if (array.Length == 1)
@@ -65,15 +64,15 @@ namespace SortHelper
         }
 
         /// <summary>
-        /// Merge method implements sorting
+        /// Merge method implements sorting.
         /// </summary>
-        /// <param name="mass1">First part of the array</param>
-        /// <param name="mass2">Second part of the array</param>
-        /// <returns>Merged array</returns>
+        /// <param name="mass1">First part of the array.</param>
+        /// <param name="mass2">Second part of the array.</param>
+        /// <returns>Merged array.</returns>
         private static int[] Merge(int[] mass1, int[] mass2)
         {
             int a = 0, b = 0;
-            int [] merged = new int[mass1.Length + mass2.Length];
+            int[] merged = new int[mass1.Length + mass2.Length];
 
             for (int i = 0; i < mass1.Length + mass2.Length; i++)
             {
@@ -100,15 +99,16 @@ namespace SortHelper
                     }
                 }
             }
+
             return merged;
         }
 
         /// <summary>
-        /// QuickSorter implements sorting
+        /// QuickSorter implements sorting.
         /// </summary>
-        /// <param name="elements">Array of elements</param>
-        /// <param name="left">Left index</param>
-        /// <param name="right">Right index</param>
+        /// <param name="elements">Array of elements.</param>
+        /// <param name="left">Left index.</param>
+        /// <param name="right">Right index.</param>
         private static void QuickSorter(int[] elements, int left, int right)
         {
             int i = left, j = right;
