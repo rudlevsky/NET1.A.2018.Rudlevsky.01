@@ -54,6 +54,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\TestHelper.cs" />
     <Compile Include="SortMakerMergeSortTests.cs" />
     <Compile Include="SortMakerQuickSortTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -12,16 +12,18 @@ namespace SortHelper
         /// QuickSort method checks correct data.
         /// </summary>
         /// <param name="array">Transferred array.</param>
+        /// <exception cref="ArgumentException">Throws when array length equals 0.</exception>
+        /// <exception cref="ArgumentNullException">Throws when array equals null.</exception>
         public static void QuickSort(int[] array)
         {
             if (array == null)
             {
-                throw new ArgumentNullException("Array can't be equal to null");
+                throw new ArgumentNullException(nameof(array) + " can't be equal to null");
             }
 
             if (array.Length == 0)
             {
-                throw new ArgumentNullException("Array length can't be equal to 0");
+                throw new ArgumentException(nameof(array) + " length can't be equal to 0");
             }
 
             QuickSorter(array, 0, array.Length - 1);
@@ -32,19 +34,17 @@ namespace SortHelper
         /// </summary>
         /// <param name="array">Transferred array.</param>
         /// <returns>Sorted array.</returns>
-        public static int[] MergeSort(int[] array)
+        /// <exception cref="ArgumentException">Throws when array length equals 0.</exception>
+        public static void MergeSort(ref int[] array)
         {
-            if (array == null)
-            {
-                throw new ArgumentNullException("Array can't be equal to null");
-            }
-
             if (array.Length == 0)
             {
-                throw new ArgumentNullException("Array length can't be equal to 0");
+                throw new ArgumentException(nameof(array) + " length can't be equal to 0");
             }
 
-            return MergeSorter(array);
+            int[] mas = new int[array.Length];
+            Array.Copy(array,mas,mas.Length);
+            array = MergeSorter(mas);
         }
 
         /// <summary>

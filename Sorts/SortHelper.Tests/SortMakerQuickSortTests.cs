@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SortHelper.Tests.Helpers;
 
 namespace SortHelper.Tests
 {
@@ -21,16 +22,12 @@ namespace SortHelper.Tests
         [TestMethod]
         public void QuickSortMethod_UnsortedLargeArray_ReturnedSortedArray()
         {
-            int largeLength = 1000000;
-            int[] expectedArray = new int[largeLength];
+            const int LargeLength = 1000000;
+            int[] expectedArray = new int[LargeLength];
 
-            for (int i = 0; i < largeLength; i++)
-            {
-                var random = new Random();
-                expectedArray[i] = random.Next();
-            }
+            expectedArray = TestHelper.GetLargeArray(LargeLength);
 
-            int[] actArray = new int[largeLength];
+            int[] actArray = new int[LargeLength];
             Array.Copy(expectedArray, actArray, expectedArray.Length);
             Array.Sort(expectedArray);
 
@@ -45,7 +42,7 @@ namespace SortHelper.Tests
         => SortMaker.QuickSort(null);
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentNullException))]
+        [ExpectedException(typeof(ArgumentException))]
         public void QuickSortMethod_ArrayLengthEqualsNull_ThrowArgumentNullException()
          => SortMaker.QuickSort(new int[] { });
 
