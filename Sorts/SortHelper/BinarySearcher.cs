@@ -3,8 +3,18 @@ using System.Collections.Generic;
 
 namespace SortHelper
 {
+    /// <summary>
+    /// Class performs binary searching.
+    /// </summary>
+    /// <typeparam name="T">Type of searching objects.</typeparam>
     public static class BinarySearcher<T>
     {
+        /// <summary>
+        /// Searches element in the array.
+        /// </summary>
+        /// <param name="array">Array for element serching.</param>
+        /// <param name="key">Element for searching.</param>
+        /// <returns>Position of finded element or null.</returns>
         public static int? BinarySearch(T[] array, T key)
         {
             FindExceptions(array, key);
