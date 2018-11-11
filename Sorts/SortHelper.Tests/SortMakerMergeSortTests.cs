@@ -9,25 +9,26 @@ namespace SortHelper.Tests
     public class SortMakerMergeSortTests
     {
          [Test]
-         public void QuickSortMethod_ArrayLengthEqualsNull_ThrowArgumentNullException()
+         public void MergeSortMethod_ArrayLengthEqualsNull_ThrowArgumentNullException()
          {
             int[] array = new int[] { };
-             Assert.Throws<ArgumentException>(() => SortMaker.MergeSort(ref array));
+
+             Assert.Throws<ArgumentException>(() => SortMaker<int>.MergeSort(ref array));
          }
-         
+
         [Test]
         public void MergeSortMethod_UnsortedArray_ReturnedSortedArray()
         {
             int[] expectedArray = { 10, 45, 66, 110 };
 
             int[] actArray = { 110, 66, 10, 45 };
-            SortMaker.MergeSort(ref actArray);
+            SortMaker<int>.MergeSort(ref actArray);
 
             CollectionAssert.AreEqual(expectedArray, actArray);
         }
 
         [Test]
-        public void QuickSortMethod_UnsortedLargeArray_ReturnedSortedArray()
+        public void MergeSortMethod_UnsortedLargeArray_ReturnedSortedArray()
         {
             const int  largeLength = 1000000;
             int[] expectedArray = new int[largeLength];
@@ -38,7 +39,7 @@ namespace SortHelper.Tests
             Array.Copy(expectedArray, actArray, expectedArray.Length);
             Array.Sort(expectedArray);
 
-            SortMaker.MergeSort(ref actArray);
+            SortMaker<int>.MergeSort(ref actArray);
 
             CollectionAssert.AreEqual(expectedArray, actArray);
         }

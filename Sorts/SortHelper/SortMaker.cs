@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SortHelper
@@ -6,7 +7,7 @@ namespace SortHelper
     /// <summary>
     /// SortMaker includes methods for sorting.
     /// </summary>
-    public static class SortMaker
+    public static class SortMaker<T>
     {
         /// <summary>
         /// QuickSort method checks correct data.
@@ -14,19 +15,19 @@ namespace SortHelper
         /// <param name="array">Transferred array.</param>
         /// <exception cref="ArgumentException">Throws when array length equals 0.</exception>
         /// <exception cref="ArgumentNullException">Throws when array equals null.</exception>
-        public static void QuickSort(int[] array)
+        public static void QuickSort(T[] array) 
         {
             if (array == null)
             {
                 throw new ArgumentNullException(nameof(array) + " can't be equal to null");
             }
-
+            
             if (array.Length == 0)
             {
                 throw new ArgumentException(nameof(array) + " length can't be equal to 0");
             }
 
-            QuickSorter(array, 0, array.Length - 1);
+            QuickSorter(array, 0, array.Length - 1, Comparer<T>.Default.Compare);
         }
 
         /// <summary>
@@ -35,16 +36,16 @@ namespace SortHelper
         /// <param name="array">Transferred array.</param>
         /// <returns>Sorted array.</returns>
         /// <exception cref="ArgumentException">Throws when array length equals 0.</exception>
-        public static void MergeSort(ref int[] array)
+        public static void MergeSort(ref T[] array)
         {
             if (array.Length == 0)
             {
                 throw new ArgumentException(nameof(array) + " length can't be equal to 0");
             }
 
-            int[] mas = new int[array.Length];
-            Array.Copy(array,mas,mas.Length);
-            array = MergeSorter(mas);
+            var arraySave = new T[array.Length];
+            Array.Copy(array,arraySave,arraySave.Length);
+            array = MergeSorter(arraySave);
         }
 
         /// <summary>
@@ -52,7 +53,7 @@ namespace SortHelper
         /// </summary>
         /// <param name="array">Transferred array.</param>
         /// <returns>Sorted part of the array.</returns>
-        private static int[] MergeSorter(int[] array)
+        private static T[] MergeSorter(T[] array)
         {
             if (array.Length == 1)
             {
@@ -60,7 +61,7 @@ namespace SortHelper
             }
             
             int mid_point = array.Length / 2;
-            return Merge(MergeSorter(array.Take(mid_point).ToArray()), MergeSorter(array.Skip(mid_point).ToArray()));
+            return Merge(MergeSorter(array.Take(mid_point).ToArray()), MergeSorter(array.Skip(mid_point).ToArray()), Comparer<T>.Default.Compare);
         }
 
         /// <summary>
@@ -69,16 +70,16 @@ namespace SortHelper
         /// <param name="mass1">First part of the array.</param>
         /// <param name="mass2">Second part of the array.</param>
         /// <returns>Merged array.</returns>
-        private static int[] Merge(int[] mass1, int[] mass2)
+        private static T[] Merge(T[] mass1, T[] mass2, Comparison<T> comparison)
         {
             int a = 0, b = 0;
-            int[] merged = new int[mass1.Length + mass2.Length];
+            T[] merged = new T[mass1.Length + mass2.Length];
 
             for (int i = 0; i < mass1.Length + mass2.Length; i++)
             {
                 if (b < mass2.Length && a < mass1.Length)
                 {
-                    if (mass1[a] > mass2[b])
+                    if (comparison(mass1[a], mass2[b]) > 0)
                     {
                         merged[i] = mass2[b++];
                     }
@@ -109,19 +110,19 @@ namespace SortHelper
         /// <param name="elements">Array of elements.</param>
         /// <param name="left">Left index.</param>
         /// <param name="right">Right index.</param>
-        private static void QuickSorter(int[] elements, int left, int right)
+        private static void QuickSorter(T[] elements, int left, int right, Comparison<T> comparison) 
         {
             int i = left, j = right;
-            int pivot = elements[(left + right) / 2];
+            T pivot = elements[(left + right) / 2];
 
             while (i <= j)
             {
-                while (elements[i].CompareTo(pivot) < 0)
+                while (comparison(elements[i], pivot) < 0)
                 {
                     i++;
                 }
 
-                while (elements[j].CompareTo(pivot) > 0)
+                while (comparison(elements[j], pivot) > 0)
                 {
                     j--;
                 }
@@ -129,7 +130,7 @@ namespace SortHelper
                 if (i <= j)
                 {
                     // Swap elements
-                    int tmp = elements[i];
+                    T tmp = elements[i];
                     elements[i] = elements[j];
                     elements[j] = tmp;
 
@@ -141,12 +142,12 @@ namespace SortHelper
             // Recursive calls according to index
             if (left < j)
             {
-                QuickSorter(elements, left, j);
+                QuickSorter(elements, left, j, comparison);
             }
 
             if (i < right)
             {
-                QuickSorter(elements, i, right);
+                QuickSorter(elements, i, right, comparison);
             }
         }
     }

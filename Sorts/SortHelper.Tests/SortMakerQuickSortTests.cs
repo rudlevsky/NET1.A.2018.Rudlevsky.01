@@ -14,8 +14,8 @@ namespace SortHelper.Tests
             int[] expectedArray = { 10, 45, 66, 110 };
 
             int[] actArray = { 110, 66, 10, 45 };
-            SortMaker.QuickSort(actArray);
-
+            SortMaker<int>.QuickSort(actArray);
+            
             CollectionAssert.AreEqual(expectedArray, actArray);
         }
 
@@ -31,7 +31,7 @@ namespace SortHelper.Tests
             Array.Copy(expectedArray, actArray, expectedArray.Length);
             Array.Sort(expectedArray);
 
-            SortMaker.QuickSort(actArray);
+            SortMaker<int>.QuickSort(actArray);
 
             CollectionAssert.AreEqual(expectedArray, actArray);
         }
@@ -39,12 +39,12 @@ namespace SortHelper.Tests
         [TestMethod]
         [ExpectedException(typeof(ArgumentNullException))]
         public void QuickSortMethod_QuickSortWithNull_ThrowArgumentNullException()
-        => SortMaker.QuickSort(null);
+        => SortMaker<int>.QuickSort(null);
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
         public void QuickSortMethod_ArrayLengthEqualsNull_ThrowArgumentNullException()
-         => SortMaker.QuickSort(new int[] { });
+         => SortMaker<int>.QuickSort(new int[] { });
 
     }
 }
