@@ -4,7 +4,6 @@ using SortHelper.Tests.Helpers;
 
 namespace SortHelper.Tests
 {
-
     [TestFixture]
     public class SortMakerMergeSortTests
     {
@@ -13,7 +12,7 @@ namespace SortHelper.Tests
          {
             int[] array = new int[] { };
 
-             Assert.Throws<ArgumentException>(() => SortMaker<int>.MergeSort(ref array));
+             Assert.Throws<ArgumentException>(() => SortMaker<int>.MergeSort(array));
          }
 
         [Test]
@@ -22,7 +21,7 @@ namespace SortHelper.Tests
             int[] expectedArray = { 10, 45, 66, 110 };
 
             int[] actArray = { 110, 66, 10, 45 };
-            SortMaker<int>.MergeSort(ref actArray);
+            SortMaker<int>.MergeSort(actArray);
 
             CollectionAssert.AreEqual(expectedArray, actArray);
         }
@@ -39,7 +38,7 @@ namespace SortHelper.Tests
             Array.Copy(expectedArray, actArray, expectedArray.Length);
             Array.Sort(expectedArray);
 
-            SortMaker<int>.MergeSort(ref actArray);
+            SortMaker<int>.MergeSort(actArray);
 
             CollectionAssert.AreEqual(expectedArray, actArray);
         }

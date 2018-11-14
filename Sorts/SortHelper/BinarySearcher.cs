@@ -19,17 +19,52 @@ namespace SortHelper
         {
             FindExceptions(array, key);
 
-            return BinarySearch(array, key, Comparer<T>.Default.Compare);
+            return Search(array, key, 0, array.Length, Comparer<T>.Default.Compare);
         }
 
-        private static int? BinarySearch(T[] array, T key, Comparison<T> comparison)
+        public static int? BinarySearch(T[] array, int startIndex, int endIndex, T key)
         {
-            int first = 0;
-            int last = array.Length - 1;
+            FindExceptions(array, key);
+
+            return Search(array, key, startIndex, endIndex, Comparer<T>.Default.Compare);
+        }
+
+        public static int? BinarySearch(T[] array, T key, Comparison<T> comparison)
+        {
+            FindExceptions(array, key);
+
+            return Search(array, key, 0, array.Length, comparison);
+        }
+
+        public static int? BinarySearch(T[] array, int startIndex, int endIndex, T key, Comparison<T> comparison)
+        {
+            FindExceptions(array, key);
+
+            return Search(array, key, startIndex, endIndex, comparison);
+        }
+
+        public static int? BinarySearch(T[] array, T key, IComparer<T> comparer)
+        {
+            FindExceptions(array, key);
+
+            return Search(array, key, 0, array.Length, comparer.Compare);
+        }
+
+        public static int? BinarySearch(T[] array, int startIndex, int endIndex, T key, IComparer<T> comparer)
+        { 
+            FindExceptions(array, key);
+
+            return Search(array, key, startIndex, endIndex, comparer.Compare);
+        }
+
+        private static int? Search(T[] array, T key, int startIndex, int endIndex, Comparison<T> comparison)
+        {
+            int first = startIndex;
+            int last = endIndex - 1;
 
             while (first <= last)
             {
-                int mid = first + (last - first) / 2;
+                int mid = (first + last) >> 1;
 
                 if (comparison(array[mid], key) < 0)
                 {

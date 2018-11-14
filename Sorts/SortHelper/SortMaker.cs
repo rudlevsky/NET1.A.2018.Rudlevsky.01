@@ -13,39 +13,74 @@ namespace SortHelper
         /// QuickSort method checks correct data.
         /// </summary>
         /// <param name="array">Transferred array.</param>
-        /// <exception cref="ArgumentException">Throws when array length equals 0.</exception>
-        /// <exception cref="ArgumentNullException">Throws when array equals null.</exception>
         public static void QuickSort(T[] array) 
         {
-            if (array == null)
-            {
-                throw new ArgumentNullException(nameof(array) + " can't be equal to null");
-            }
-            
-            if (array.Length == 0)
-            {
-                throw new ArgumentException(nameof(array) + " length can't be equal to 0");
-            }
+            CheckExceptions(array);
 
             QuickSorter(array, 0, array.Length - 1, Comparer<T>.Default.Compare);
         }
 
         /// <summary>
-        /// MergeSort method checks correct data.
+        /// QuickSort method checks correct data.
+        /// </summary>
+        /// <param name="array">Transferred array.</param>
+        /// <param name="comparer">Passed delegate comparer.</param>
+        public static void QuickSort(T[] array, Comparison<T> comparer)
+        {
+            CheckExceptions(array);
+
+            QuickSorter(array, 0, array.Length - 1, comparer);
+        }
+
+        /// <summary>
+        /// QuickSort method checks correct data.
+        /// </summary>
+        /// <param name="array">Transferred array.</param>
+        /// <param name="comparer">Passed interface comparer.</param>
+        public static void QuickSort(T[] array, IComparer<T> comparer)
+        {
+            CheckExceptions(array);
+
+            QuickSorter(array, 0, array.Length - 1, comparer.Compare);
+        }
+
+        /// <summary>
+        /// Performs merge sort.
         /// </summary>
         /// <param name="array">Transferred array.</param>
         /// <returns>Sorted array.</returns>
-        /// <exception cref="ArgumentException">Throws when array length equals 0.</exception>
-        public static void MergeSort(ref T[] array)
+        public static void MergeSort(T[] array)
         {
-            if (array.Length == 0)
-            {
-                throw new ArgumentException(nameof(array) + " length can't be equal to 0");
-            }
+            CheckExceptions(array);
 
-            var arraySave = new T[array.Length];
-            Array.Copy(array,arraySave,arraySave.Length);
-            array = MergeSorter(arraySave);
+            var resultArray = MergeSorter(array, Comparer<T>.Default.Compare);
+            resultArray.CopyTo(array, 0);
+        }
+
+        /// <summary>
+        /// Performs merge sort.
+        /// </summary>
+        /// <param name="array">Transferred array.</param>
+        /// <param name="comparer">Passed interface comparer.</param>
+        public static void MergeSort(T[] array, IComparer<T> comparer)
+        {
+            CheckExceptions(array);
+
+            var resultArray = MergeSorter(array, comparer.Compare);
+            resultArray.CopyTo(array, 0);
+        }
+
+        /// <summary>
+        /// Performs merge sort.
+        /// </summary>
+        /// <param name="array">Transferred array.</param>
+        /// <param name="comparer">Passed delegate comparer.</param>
+        public static void MergeSort(T[] array, Comparison<T> comparer)
+        {
+            CheckExceptions(array);
+
+            var resultArray = MergeSorter(array, comparer);
+            resultArray.CopyTo(array, 0);
         }
 
         /// <summary>
@@ -53,7 +88,7 @@ namespace SortHelper
         /// </summary>
         /// <param name="array">Transferred array.</param>
         /// <returns>Sorted part of the array.</returns>
-        private static T[] MergeSorter(T[] array)
+        private static T[] MergeSorter(T[] array, Comparison<T> comparison)
         {
             if (array.Length == 1)
             {
@@ -61,7 +96,7 @@ namespace SortHelper
             }
             
             int mid_point = array.Length / 2;
-            return Merge(MergeSorter(array.Take(mid_point).ToArray()), MergeSorter(array.Skip(mid_point).ToArray()), Comparer<T>.Default.Compare);
+            return Merge(MergeSorter(array.Take(mid_point).ToArray(), comparison), MergeSorter(array.Skip(mid_point).ToArray(), comparison), comparison);
         }
 
         /// <summary>
@@ -148,6 +183,19 @@ namespace SortHelper
             if (i < right)
             {
                 QuickSorter(elements, i, right, comparison);
+            }
+        }
+
+        private static void CheckExceptions(T[] array)
+        {
+            if (array == null)
+            {
+                throw new ArgumentNullException(nameof(array) + " can't be equal to null");
+            }
+
+            if (array.Length == 0)
+            {
+                throw new ArgumentException(nameof(array) + " length can't be equal to 0");
             }
         }
     }
